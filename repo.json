@@ -1,0 +1,21 @@
+[
+  {
+    "Author": "Medi",
+    "Name": "Custom Penny Pincher",
+    "InternalName": "CustomPennyPincher",
+    "AssemblyVersion": "1.7.0.2",
+    "Description": "Easy Market Price Updated",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/Naravia/CustomPennyPincher",
+    "DalamudApiLevel": 9,
+    "LoadRequiredState": 0,
+    "LoadSync": false,
+    "CanUnloadAsync": false,
+    "LoadPriority": 0,
+    "Punchline": "Custom modifications to Penny Pincher plugin",
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://github.com/Naravia/CustomPennyPincher/releases/download/2.0/Release.zip",
+    "DownloadLinkTesting": "https://github.com/Naravia/CustomPennyPincher/releases/download/2.0/Release.zip",
+    "DownloadLinkUpdate": "https://github.com/Naravia/CustomPennyPincher/releases/download/2.0/Release.zip"
+  }
+]
