@@ -1,4 +1,5 @@
-{
+[
+  {
   "Author": "Medi",
   "Name": "Custom Penny Pincher",
   "Description": "Easy Market Price Updated",
@@ -10,4 +11,5 @@
   "DownloadLinkInstall": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/1.4.1/CustomPennyPincher.zip",
   "DownloadLinkTesting": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/1.4.1/CustomPennyPincher.zip",
   "DownloadLinkUpdate": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/1.4.1/CustomPennyPincher.zip"
-}
+  }
+]
