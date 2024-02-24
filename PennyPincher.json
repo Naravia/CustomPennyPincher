@@ -8,5 +8,7 @@
     "ImageUrls": [],
     "IconUrl": "https://github.com/tesu/PennyPincher/raw/master/images/icon.png",
     "DownloadLinkInstall": "https://github.com/MediArgentum/CustomPennyPincher/files/14392178/CustomPennyPincher.zip",
+    "DownloadLinkTesting": "https://github.com/MediArgentum/CustomPennyPincher/files/14392178/CustomPennyPincher.zip",
+    "DownloadLinkUpdate": "https://github.com/MediArgentum/CustomPennyPincher/files/14392178/CustomPennyPincher.zip"
     "Changelog": "API version bump"
 }
