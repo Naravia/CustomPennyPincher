@@ -1,15 +1,13 @@
-[
-  {
-    "Author": "Medi",
-    "Name": "Custom Penny Pincher",
-    "Description": "Easy Market Price Updated",
-    "InternalName": "CustomPennyPincher",
-    "AssemblyVersion": "1.4.1",
-    "RepoUrl": "https://github.com/MediArgentum/CustomPennyPincher",
-    "ApplicableVersion": "any",
-    "DalamudApiLevel": 6,
-    "DownloadLinkInstall": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/v1.4.1/CustomPennyPincher.zip",
-    "DownloadLinkTesting": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/v1.4.1/CustomPennyPincher.zip",
-    "DownloadLinkUpdate": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/v1.4.1/CustomPennyPincher.zip"
-  }
-]
+{
+  "Author": "Medi",
+  "Name": "Custom Penny Pincher",
+  "Description": "Easy Market Price Updated",
+  "InternalName": "CustomPennyPincher",
+  "AssemblyVersion": "1.4.1",
+  "RepoUrl": "https://github.com/MediArgentum/CustomPennyPincher",
+  "ApplicableVersion": "any",
+  "DalamudApiLevel": 6,
+  "DownloadLinkInstall": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/v1.4.1/CustomPennyPincher.zip",
+  "DownloadLinkTesting": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/v1.4.1/CustomPennyPincher.zip",
+  "DownloadLinkUpdate": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/v1.4.1/CustomPennyPincher.zip"
+}
