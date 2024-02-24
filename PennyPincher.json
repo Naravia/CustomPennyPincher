@@ -3,7 +3,7 @@
   "Author": "Medi",
   "Name": "Custom Penny Pincher 2",
   "Description": "Easy Market Price Updated",
-  "InternalName": "CustomPennyPincher",
+  "InternalName": "PennyPincher",
   "AssemblyVersion": "1.4.1",
   "RepoUrl": "https://github.com/MediArgentum/CustomPennyPincher",
   "ApplicableVersion": "any",
