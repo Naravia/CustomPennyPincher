@@ -8,8 +8,8 @@
     "RepoUrl": "https://github.com/MediArgentum/CustomPennyPincher",
     "ApplicableVersion": "any",
     "DalamudApiLevel": 6,
-    "DownloadLinkInstall": "https://github.com/MediArgentum/CustomPennyPincher/files/14392178/CustomPennyPincher.zip",
-    "DownloadLinkTesting": "https://github.com/MediArgentum/CustomPennyPincher/files/14392178/CustomPennyPincher.zip",
-    "DownloadLinkUpdate": "https://github.com/MediArgentum/CustomPennyPincher/files/14392178/CustomPennyPincher.zip"
+    "DownloadLinkInstall": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/v1.4.1/CustomPennyPincher.zip",
+    "DownloadLinkTesting": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/v1.4.1/CustomPennyPincher.zip",
+    "DownloadLinkUpdate": "https://github.com/MediArgentum/CustomPennyPincher/releases/download/v1.4.1/CustomPennyPincher.zip"
   }
 ]
