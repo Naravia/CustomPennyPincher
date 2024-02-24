@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using CustomPennyPincher;
 using Dalamud.Data;
 using Dalamud.Game.ClientState.Keys;
 using Dalamud.Game.Command;
@@ -20,7 +21,7 @@ using ImGuiNET;
 using Lumina.Excel.GeneratedSheets;
 using Num = System.Numerics;
 
-namespace PennyPincher
+namespace CustomPennyPincher
 {
     public class PennyPincher : IDalamudPlugin
     {
@@ -34,7 +35,7 @@ namespace PennyPincher
         [PluginService] public static IGameInteropProvider GameInteropProvider { get; private set; } = null!;
 
         private const string commandName = "/penny";
-        
+
         private int configMin;
         private int configMod;
         private int configMultiple;
@@ -55,15 +56,15 @@ namespace PennyPincher
         private GetFilePointer getFilePtr;
         [Signature("48 89 5C 24 ?? 55 56 57 48 83 EC 50 4C 89 64 24", DetourName = nameof(AddonRetainerSell_OnSetup))]
         private Hook<AddonOnSetup> retainerSellSetup;
-        private unsafe delegate void* MarketBoardItemRequestStart(int* a1,int* a2,int* a3);
+        private unsafe delegate void* MarketBoardItemRequestStart(int* a1, int* a2, int* a3);
         private unsafe delegate void* MarketBoardOfferings(InfoProxyItemSearch* a1, nint packetData);
-        
+
         //If the signature for these are ever lost, find the ProcessZonePacketDown signature in Dalamud and then find the relevant function based on the opcode.
         [Signature("48 89 5C 24 ?? 57 48 83 EC 40 48 8B 0D ?? ?? ?? ?? 48 8B DA E8 ?? ?? ?? ?? 48 8B F8", DetourName = nameof(MarketBoardItemRequestStartDetour), UseFlags = SignatureUseFlags.Hook)]
         private Hook<MarketBoardItemRequestStart> _marketBoardItemRequestStartHook;
-        
+
         private Hook<MarketBoardOfferings> _marketBoardOfferingsHook;
-        
+
         private List<MarketBoardCurrentOfferings> _cache = new();
 
         public PennyPincher()
@@ -93,7 +94,7 @@ namespace PennyPincher
                 configuration = new Configuration();
             }
             LoadConfig();
-            
+
             items = Data.GetExcelSheet<Item>();
             newRequest = false;
 
@@ -111,10 +112,10 @@ namespace PennyPincher
                 {
                     GameInteropProvider.InitializeFromAttributes(this);
                     _marketBoardItemRequestStartHook.Enable();
-                
-                    var uiModule   = (UIModule*)GameGui.GetUIModule();
+
+                    var uiModule = (UIModule*)GameGui.GetUIModule();
                     var infoModule = uiModule->GetInfoModule();
-                    var proxy      = infoModule->GetInfoProxyById(11);
+                    var proxy = infoModule->GetInfoProxyById(11);
                     _marketBoardOfferingsHook = GameInteropProvider.HookFromAddress<MarketBoardOfferings>((nint)proxy->vtbl[12], MarketBoardOfferingsDetour);
                     _marketBoardOfferingsHook.Enable();
                     retainerSellSetup.Enable();
@@ -128,14 +129,14 @@ namespace PennyPincher
                 Log.Error(e.ToString());
             }
         }
-        
-        private unsafe void* MarketBoardItemRequestStartDetour(int* a1,int* a2,int* a3)
+
+        private unsafe void* MarketBoardItemRequestStartDetour(int* a1, int* a2, int* a3)
         {
             try
             {
                 if (a3 != null)
                 {
-                    var ptr = (IntPtr)a2;
+                    var ptr = (nint)a2;
                     ParseNetworkEvent(ptr, PennyPincherPacketType.MarketBoardItemRequestStart);
                 }
             }
@@ -143,10 +144,10 @@ namespace PennyPincher
             {
                 Log.Error(e, "Market board item request start detour crashed while parsing.");
             }
-            
-            return _marketBoardItemRequestStartHook!.Original(a1,a2,a3);
+
+            return _marketBoardItemRequestStartHook!.Original(a1, a2, a3);
         }
-        
+
         private unsafe void* MarketBoardOfferingsDetour(InfoProxyItemSearch* a1, nint packetData)
         {
             try
@@ -161,11 +162,11 @@ namespace PennyPincher
                 Log.Error(e, "Market board offering packet detour crashed while parsing.");
             }
 
-            return _marketBoardOfferingsHook!.Original(a1,packetData);
+            return _marketBoardOfferingsHook!.Original(a1, packetData);
         }
 
-        private delegate IntPtr GetFilePointer(byte index);
-        private delegate IntPtr AddonOnSetup(IntPtr addon, uint a2, IntPtr dataPtr);
+        private delegate nint GetFilePointer(byte index);
+        private delegate nint AddonOnSetup(nint addon, uint a2, nint dataPtr);
 
         public string Name => "Penny Pincher";
 
@@ -178,7 +179,7 @@ namespace PennyPincher
             PluginInterface.UiBuilder.OpenConfigUi -= OpenConfigUi;
             CommandManager.RemoveHandler(commandName);
         }
-        
+
         private void Command(string command, string arguments)
         {
             if (arguments == "hq")
@@ -192,7 +193,7 @@ namespace PennyPincher
                 _config = true;
             }
         }
-        
+
         private void OpenConfigUi()
         {
             _config = true;
@@ -201,14 +202,14 @@ namespace PennyPincher
         private void DrawWindow()
         {
             if (!_config) return;
-            
+
             ImGui.SetNextWindowSize(new Num.Vector2(550, 270), ImGuiCond.FirstUseEver);
             ImGui.Begin($"{Name} Config", ref _config);
-            
+
             ImGui.InputInt("Amount to undercut by", ref configDelta);
-            
+
             ImGui.InputInt("Minimum price to copy", ref configMin);
-            
+
             ImGui.InputInt("Modulo*", ref configMod);
             ImGui.TextWrapped("*Subtracts an additional [<lowest price> %% <modulo>] from the price before applying the delta (no effect if modulo is 1).\nThis can be used to make the last digits of your copied prices consistent.");
 
@@ -266,7 +267,7 @@ namespace PennyPincher
                 Chat.Print("Multiple must be positive.");
                 configMod = 1;
             }
-            
+
             configuration.delta = configDelta;
             configuration.min = configMin;
             configuration.mod = configMod;
@@ -276,16 +277,16 @@ namespace PennyPincher
             configuration.hq = configHq;
             configuration.undercutSelf = configUndercutSelf;
             configuration.verbose = configVerbose;
-            
+
             PluginInterface.SavePluginConfig(configuration);
         }
-        
+
         private bool Retainer()
         {
-            return (getFilePtr != null) && Marshal.ReadInt64(getFilePtr(7), 0xB0) != 0;
+            return getFilePtr != null && Marshal.ReadInt64(getFilePtr(7), 0xB0) != 0;
         }
 
-        private void ParseNetworkEvent(IntPtr dataPtr, PennyPincherPacketType packetType)
+        private void ParseNetworkEvent(nint dataPtr, PennyPincherPacketType packetType)
         {
             // if (!Data.IsDataReady) return;
             if (packetType == PennyPincherPacketType.MarketBoardItemRequestStart)
@@ -309,16 +310,16 @@ namespace PennyPincher
             var i = 0;
             if (useHq && items.Single(j => j.RowId == listing.ItemListings[0].CatalogId).CanBeHq)
             {
-                while (i < listing.ItemListings.Count && (!listing.ItemListings[i].IsHq || (!configuration.undercutSelf && IsOwnRetainer(listing.ItemListings[i].RetainerId)))) i++;
+                while (i < listing.ItemListings.Count && (!listing.ItemListings[i].IsHq || !configuration.undercutSelf && IsOwnRetainer(listing.ItemListings[i].RetainerId))) i++;
             }
             else
             {
-                while (i < listing.ItemListings.Count && (!configuration.undercutSelf && IsOwnRetainer(listing.ItemListings[i].RetainerId))) i++;
+                while (i < listing.ItemListings.Count && !configuration.undercutSelf && IsOwnRetainer(listing.ItemListings[i].RetainerId)) i++;
             }
 
             if (i == listing.ItemListings.Count) return;
 
-            var price = listing.ItemListings[i].PricePerUnit - (listing.ItemListings[i].PricePerUnit % configuration.mod) - configuration.delta;
+            var price = listing.ItemListings[i].PricePerUnit - listing.ItemListings[i].PricePerUnit % configuration.mod - configuration.delta;
             //price -= (price % configuration.multiple);
             price = price * (configuration.multiple / 100);
             price = Math.Max(price, configuration.min);
@@ -332,7 +333,7 @@ namespace PennyPincher
             newRequest = false;
         }
 
-        private unsafe IntPtr AddonRetainerSell_OnSetup(IntPtr addon, uint a2, IntPtr dataPtr)
+        private unsafe nint AddonRetainerSell_OnSetup(nint addon, uint a2, nint dataPtr)
         {
             var result = retainerSellSetup.Original(addon, a2, dataPtr);
 
@@ -353,7 +354,7 @@ namespace PennyPincher
             // handle paged requests. 10 per request
             var neededItems = listing.ListingIndexStart + listing.ItemListings.Count;
             var actualItems = _cache.Sum(x => x.ItemListings.Count);
-            return (neededItems == actualItems);
+            return neededItems == actualItems;
         }
 
         private unsafe bool IsOwnRetainer(ulong retainerId)

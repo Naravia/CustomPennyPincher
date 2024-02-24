@@ -1,0 +1,9 @@
+{
+    "Author": "Medi",
+    "Name": "Custom Penny Pincher",
+    "Description": "Easy Market Price Updated",
+    "Punchline": "Custom modifications to Penny Pincher plugin",
+    "InternalName": "CustomPennyPincher",
+    "RepoUrl": "https://github.com/Naravia/CustomPennyPincher",
+    "ApplicableVersion": "any"
+}
