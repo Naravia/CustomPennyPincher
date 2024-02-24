@@ -1,16 +1,15 @@
 [
   {
-    "Author": "Who even knows at this point",
+    "Author": "Medi",
     "Name": "Custom Penny Pincher",
-    "Description": "Easy Market Price Updating",
-    "InternalName": "PennyPincherFork",
+    "Description": "Easy Market Price Updated",
+    "InternalName": "CustomPennyPincher",
     "AssemblyVersion": "1.4.1",
     "RepoUrl": "https://github.com/MediArgentum/CustomPennyPincher",
     "ApplicableVersion": "any",
     "DalamudApiLevel": 6,
     "DownloadLinkInstall": "https://github.com/MediArgentum/CustomPennyPincher/files/14392178/CustomPennyPincher.zip",
     "DownloadLinkTesting": "https://github.com/MediArgentum/CustomPennyPincher/files/14392178/CustomPennyPincher.zip",
-    "DownloadLinkUpdate": "https://github.com/MediArgentum/CustomPennyPincher/files/14392178/CustomPennyPincher.zip",
-    "IconUrl": "https://github.com/Yerdiss/PennyPincherFork/master/images/icon.png"
+    "DownloadLinkUpdate": "https://github.com/MediArgentum/CustomPennyPincher/files/14392178/CustomPennyPincher.zip"
   }
 ]
